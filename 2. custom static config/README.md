@@ -1,7 +1,7 @@
 # 2. Custom static config
 
 ## Guide
-https://www.envoyproxy.io/docs/envoy/v1.24.0/start/quick-start/configuration-static#configuration-static
+https://www.tetrate.io/blog/get-started-with-envoy-in-5-minutes/
 
 ## Steps
 1. Apply config
@@ -18,7 +18,6 @@ docker run --rm -it \
 <!-- 
 
 docker run --rm -it \
-      -p 9902:9902 \
       -p 10000:10000 \
       envoyproxy/envoy:v1.24.0 \
           --config-yaml "$(cat envoy-demo.yaml)"
