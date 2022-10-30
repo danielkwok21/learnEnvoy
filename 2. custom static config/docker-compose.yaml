@@ -1,0 +1,24 @@
+services:
+  blue:
+    container_name: blue
+    image: gcr.io/tetratelabs/color-app:1.0.0
+    environment:
+      - BG_COLOR=blue
+    restart: always
+    ports:
+      - "5050:3000"
+  green:
+    container_name: green
+    image: gcr.io/tetratelabs/color-app:1.0.0
+    environment:
+      - BG_COLOR=green
+    restart: always
+    ports:
+      - "5000:3000"
+  envoy:
+    container_name: envoy
+    image: envoyproxy/envoy:v1.24.0
+    command: --config-yaml "$$(cat envoy-demo.yaml)"
+    restart: always
+    ports:
+      - "10000:10000"

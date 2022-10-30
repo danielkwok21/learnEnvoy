@@ -1,0 +1,10 @@
+GET http://localhost:10000
+###
+
+GET http://localhost:4000
+###
+
+GET http://localhost:4001
+###
+
+GET http://localhost:10000/service_a
