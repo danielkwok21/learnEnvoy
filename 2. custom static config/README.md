@@ -4,18 +4,14 @@
 https://www.tetrate.io/blog/get-started-with-envoy-in-5-minutes/
 
 ## Steps
-1. Apply config
-The `-c` or `--config-path` flag tells Envoy the path to its initial configuration.
+1. Start containers (envoy, and 2 dummy services)
 ```bash
-docker run --rm -it \
-    -p 9901:9901 \
-    -p 10000:10000 \
-    -v ./envoy-demo.yaml:/envoy-demo.yaml \
-    envoyproxy/envoy:v1.24.0 \
-    -c /envoy-demo.yaml
+docker-compose up
 ```
 
-1. Verify
+2. Verify
 ```bash
-curl localhost:10000
+curl localhost:10000/blue
+
+curl localhost:10000/green
 ```
