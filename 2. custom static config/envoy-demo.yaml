@@ -18,7 +18,8 @@ static_resources:
           route_config: 
             virtual_hosts:
             - name: all_domains
-              domains: ["*"]
+              domains:
+              - "*"
               routes:
               - match:
                   prefix: "/blue"
@@ -31,6 +32,9 @@ static_resources:
   clusters:
   - name: blue
     connect_timeout: 5s
+    type: strict_dns
+    lb_policy: round_robin
+    http2_protocol_options: {}
     load_assignment:
       cluster_name: blue
       endpoints:
@@ -38,11 +42,14 @@ static_resources:
         - endpoint:
             address:
               socket_address:
-                address: 127.0.0.1
+                address: blue
                 port_value: 5050
 
   - name: green
     connect_timeout: 5s
+    type: strict_dns
+    lb_policy: round_robin
+    http2_protocol_options: {}
     load_assignment:
       cluster_name: green
       endpoints:
@@ -50,5 +57,11 @@ static_resources:
         - endpoint:
             address:
               socket_address:
-                address: 127.0.0.1
+                address: green
                 port_value: 5000
+admin:
+  access_log_path: "/dev/null"
+  address:
+    socket_address:
+      address: 0.0.0.0
+      port_value: 8001

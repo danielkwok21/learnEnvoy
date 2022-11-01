@@ -19,12 +19,16 @@ services:
     container_name: daniel_envoy
     image: envoyproxy/envoy:v1.24.0
     command: --config-path /usr/src/app/envoy-demo.yaml
-    # command: --config-path ./envoy-demo.yaml
     volumes:
-      - "/Users/daniel.kwok/Documents/code/learnEnvoy/2. custom static config:/usr/src/app"
+      # Personal laptop
+      - "/home/daniel/Documents/code/learnEnvoy/2. custom static config:/usr/src/app"
+
+      # # Work laptop
+      # - "/Users/daniel.kwok/Documents/code/learnEnvoy/2. custom static config:/usr/src/app"
     restart: always
     ports:
       - "10000:10000"
+      - "8001:8001"
 
 volumes:
   my_volume:
