@@ -4,32 +4,18 @@ services:
     image: gcr.io/tetratelabs/color-app:1.0.0
     environment:
       - BG_COLOR=blue
-    restart: always
-    ports:
-      - "5050:3000"
   green:
     container_name: green
     image: gcr.io/tetratelabs/color-app:1.0.0
     environment:
       - BG_COLOR=green
-    restart: always
-    ports:
-      - "5000:3000"
   envoy:
     container_name: daniel_envoy
     image: envoyproxy/envoy:v1.24.0
     command: --config-path /usr/src/app/envoy-demo.yaml
     volumes:
-      # Personal laptop
-      - "/home/daniel/Documents/code/learnEnvoy/2. custom static config:/usr/src/app"
-
-      # # Work laptop
-      # - "/Users/daniel.kwok/Documents/code/learnEnvoy/2. custom static config:/usr/src/app"
+      - "./:/usr/src/app"
     restart: always
     ports:
       - "10000:10000"
       - "8001:8001"
-
-volumes:
-  my_volume:
-    driver: local

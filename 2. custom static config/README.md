@@ -1,7 +1,8 @@
 # 2. Custom static config (wip)
 
-## Guide
+## Guides
 https://www.tetrate.io/blog/get-started-with-envoy-in-5-minutes/
+https://www.envoyproxy.io/docs/envoy/latest/start/sandboxes/front_proxy.html
 
 ## Steps
 1. Start containers (envoy, and 2 dummy services)
