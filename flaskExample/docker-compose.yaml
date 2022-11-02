@@ -12,9 +12,11 @@ services:
 
   # front-proxy
   front-envoy:
-    build:
-      context: .
-      dockerfile: Dockerfile-frontenvoy
+    image: envoyproxy/envoy-dev:latest
+    volumes:
+    - ./service-envoy.yaml:/etc/service-envoy.yaml
+    - ./front-envoy.yaml:/etc/front-envoy.yaml
+    command: -c etc/front-envoy.yaml --service-cluster front-proxy
     ports:
     - "${PORT_PROXY:-8080}:8080"
     - "${PORT_HTTPS:-8443}:8443"
