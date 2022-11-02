@@ -10,14 +10,12 @@ static_resources:
       - name: envoy.filters.network.http_connection_manager
         typed_config:
           "@type": type.googleapis.com/envoy.extensions.filters.network.http_connection_manager.v3.HttpConnectionManager
-          stat_prefix: edge
-          http_filters:
-          - name: envoy.filters.http.router
-            typed_config:
-              "@type": type.googleapis.com/envoy.extensions.filters.http.router.v3.Router
-          route_config: 
+          codec_type: AUTO
+          stat_prefix: ingress_http
+          route_config:
+            name: local_route
             virtual_hosts:
-            - name: all_domains
+            - name: backend
               domains:
               - "*"
               routes:
@@ -29,36 +27,31 @@ static_resources:
                   prefix: "/green"
                 route:
                   cluster: green
+          http_filters:
+          - name: envoy.filters.http.router
+            typed_config:
+              "@type": type.googleapis.com/envoy.extensions.filters.http.router.v3.Router
+
   clusters:
   - name: blue
-    connect_timeout: 5s
+    connect_timeout: 0.25s
     type: strict_dns
     lb_policy: round_robin
     http2_protocol_options: {}
-    load_assignment:
-      cluster_name: blue
-      endpoints:
-      - lb_endpoints:
-        - endpoint:
-            address:
-              socket_address:
-                address: blue
-                port_value: 5050
-
+    hosts:
+    - socket_address:
+        address: blue
+        port_value: 5050 
   - name: green
-    connect_timeout: 5s
+    connect_timeout: 0.25s
     type: strict_dns
     lb_policy: round_robin
     http2_protocol_options: {}
-    load_assignment:
-      cluster_name: green
-      endpoints:
-      - lb_endpoints:
-        - endpoint:
-            address:
-              socket_address:
-                address: green
-                port_value: 5000
+    hosts:
+    - socket_address:
+        address: green
+        port_value: 5000 
+        
 admin:
   access_log_path: "/dev/null"
   address:
