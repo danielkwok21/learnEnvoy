@@ -1,20 +1,9 @@
 version: "3.8"
 services:
-
-  # base images
-  flask_service:
-    build:
-      context: ../shared/flask
-    image: flask_service:python-3.10-slim-bullseye
-    restart: "no"
-    deploy:
-      replicas: 0
-
   # front-proxy
   front-envoy:
     image: envoyproxy/envoy-dev:latest
     volumes:
-    - ./service-envoy.yaml:/etc/service-envoy.yaml
     - ./front-envoy.yaml:/etc/front-envoy.yaml
     command: -c etc/front-envoy.yaml --service-cluster front-proxy
     ports:
@@ -26,12 +15,8 @@ services:
     image: gcr.io/tetratelabs/color-app:1.0.0
     environment:
       - BG_COLOR=blue
-    volumes:
-    - ./service-envoy.yaml:/etc/service-envoy.yaml
 
   service2:
     image: gcr.io/tetratelabs/color-app:1.0.0
     environment:
       - BG_COLOR=green
-    volumes:
-    - ./service-envoy.yaml:/etc/service-envoy.yaml
