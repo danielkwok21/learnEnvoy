@@ -23,17 +23,15 @@ services:
     - "${PORT_STATS:-8001}:8001"
 
   service1:
-    build:
-      context: ../shared/tracing
+    image: gcr.io/tetratelabs/color-app:1.0.0
+    environment:
+      - BG_COLOR=blue
     volumes:
     - ./service-envoy.yaml:/etc/service-envoy.yaml
-    environment:
-    - SERVICE_NAME=1
 
   service2:
-    build:
-      context: ../shared/tracing
+    image: gcr.io/tetratelabs/color-app:1.0.0
+    environment:
+      - BG_COLOR=green
     volumes:
     - ./service-envoy.yaml:/etc/service-envoy.yaml
-    environment:
-    - SERVICE_NAME=2
