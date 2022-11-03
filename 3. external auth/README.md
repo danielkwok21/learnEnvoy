@@ -9,4 +9,4 @@ https://www.envoyproxy.io/docs/envoy/v1.24.0/configuration/http/http_filters/ext
 docker-compose up
 ```
 
-1. Visit [./api.rest](./api.rest) to play with requests
+2. Visit [./api.rest](./api.rest) to play with requests
