@@ -1,4 +1,4 @@
-# 2. Custom static config (wip)
+# 2. Custom static config
 
 ## Guides
 https://www.tetrate.io/blog/get-started-with-envoy-in-5-minutes/

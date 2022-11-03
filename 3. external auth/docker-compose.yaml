@@ -1,0 +1,22 @@
+services:
+  blue:
+    image: gcr.io/tetratelabs/color-app:1.0.0
+    environment:
+      - BG_COLOR=blue
+  green:
+    image: gcr.io/tetratelabs/color-app:1.0.0
+    environment:
+      - BG_COLOR=green
+  ext-authz:
+    build:
+      context: ./authService
+      dockerfile: ./Dockerfile
+  envoy:
+    image: envoyproxy/envoy:v1.24.0
+    command: --config-path /usr/src/app/envoy-demo.yaml
+    volumes:
+      - "./:/usr/src/app"
+    restart: always
+    ports:
+      - "10000:10000"
+      - "8001:8001"
